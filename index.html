@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>영도심부름센터 - 당신의 바쁜 일상, 제가 대신합니다</title>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --brand-blue: #002b49;
+            --brand-accent: #005691;
+            --brand-light: #f0f4f8;
+            --text-main: #1f2937;
+            --text-sub: #4b5563;
+            --border-color: #e5e7eb;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        body {
+            background-color: #ffffff;
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        /* Header Navigation */
+        header {
+            position: sticky;
+            top: 0;
+            background-color: #ffffff;
+            border-bottom: 2px solid var(--brand-blue);
+            z-index: 1000;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            height: 75px;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: 900;
+            color: var(--brand-blue);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-tag {
+            font-size: 13px;
+            background: var(--brand-blue);
+            color: #fff;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+
+        .nav-tabs {
+            display: flex;
+            list-style: none;
+            height: 100%;
+        }
+
+        .nav-tabs button {
+            background: none;
+            border: none;
+            height: 100%;
+            padding: 0 18px;
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-sub);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .nav-tabs button:hover,
+        .nav-tabs button.active {
+            color: var(--brand-blue);
+        }
+
+        .nav-tabs button.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background-color: var(--brand-blue);
+        }
+
+        /* Hero Banner */
+        .hero-banner {
+            background: linear-gradient(135deg, var(--brand-blue) 0%, #001524 100%);
+            color: #ffffff;
+            padding: 70px 20px;
+            text-align: center;
+        }
+
+        .hero-banner h1 {
+            font-size: 36px;
+            font-weight: 800;
+            margin-bottom: 15px;
+            letter-spacing: -0.5px;
+        }
+
+        .hero-banner p {
+            font-size: 18px;
+            opacity: 0.9;
+            max-width: 650px;
+            margin: 0 auto 25px auto;
+        }
+
+        .hero-badges {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .hero-badge-item {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            backdrop-filter: blur(5px);
+        }
+
+        /* Main Container & Tab System */
+        .main-container {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 0 20px;
+            min-height: 450px;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-title {
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 25px;
+            color: var(--brand-blue);
+            border-left: 5px solid var(--brand-blue);
+            padding-left: 12px;
+        }
+
+        /* 대표 소개 & 이력 스타일 */
+        .profile-card-grid {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 30px;
+            background: var(--brand-light);
+            border-radius: 16px;
+            padding: 35px;
+            border: 1px solid var(--border-color);
+        }
+
+        .profile-sidebar {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+        }
+
+        .profile-avatar {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            background-color: var(--brand-blue);
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 45px;
+            margin: 0 auto 15px auto;
+        }
+
+        .profile-sidebar h3 {
+            font-size: 22px;
+            color: var(--brand-blue);
+        }
+
+        .profile-sidebar p {
+            font-size: 14px;
+            color: var(--text-sub);
+            margin-bottom: 15px;
+        }
+
+        .spec-group {
+            text-align: left;
+            margin-top: 15px;
+            border-top: 1px solid var(--border-color);
+            padding-top: 15px;
+        }
+
+        .spec-group h4 {
+            font-size: 14px;
+            color: var(--brand-accent);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .spec-list {
+            list-style: none;
+            font-size: 13px;
+            color: var(--text-main);
+        }
+
+        .spec-list li {
+            margin-bottom: 6px;
+            padding-left: 12px;
+            position: relative;
+        }
+
+        .spec-list li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--brand-blue);
+        }
+
+        .message-box h3 {
+            font-size: 24px;
+            color: var(--brand-blue);
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+
+        .message-box p {
+            margin-bottom: 15px;
+            color: var(--text-sub);
+            font-size: 15px;
+        }
+
+        /* 서비스 소개 그리드 */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 20px;
+        }
+
+        .service-card {
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 25px;
+            background: #fff;
+            transition: transform 0.2s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--brand-blue);
+        }
+
+        .service-card i {
+            font-size: 32px;
+            color: var(--brand-blue);
+            margin-bottom: 15px;
+        }
+
+        .service-card h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .service-card p {
+            font-size: 14px;
+            color: var(--text-sub);
+        }
+
+        /* 인재상 / 경영 가치 Cards */
+        .value-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .value-card {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+        }
+
+        .value-card h3 {
+            font-size: 20px;
+            color: var(--brand-blue);
+            margin-bottom: 10px;
+        }
+
+        /* 채용 및 파트너 모집 */
+        .recruitment-card {
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--brand-light);
+            margin-bottom: 15px;
+        }
+
+        .apply-btn {
+            background: var(--brand-blue);
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--brand-blue);
+            color: #ffffff;
+            padding: 35px 20px;
+            margin-top: 60px;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                height: auto;
+                padding: 15px;
+            }
+            .nav-tabs {
+                margin-top: 10px;
+                width: 100%;
+                justify-content: space-between;
+            }
+            .profile-card-grid {
+                grid-template-columns: 1fr;
+            }
+            .value-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header>
+        <div class="header-container">
+            <a href="#" class="logo">
+                영도심부름센터 <span class="logo-tag">믿고 맡겨주세요!</span>
+            </a>
+            <ul class="nav-tabs">
+                <li><button class="tab-btn active" onclick="openTab(event, 'tab-about')">대표 소개 & 이력</button></li>
+                <li><button class="tab-btn" onclick="openTab(event, 'tab-services')">주요 업무</button></li>
+                <li><button class="tab-btn" onclick="openTab(event, 'tab-values')">운영 철학</button></li>
+                <li><button class="tab-btn" onclick="openTab(event, 'tab-careers')">크루 / 파트너 모집</button></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Hero Banner -->
+    <section class="hero-banner">
+        <h1>당신의 바쁜 일상, 제가 대신합니다</h1>
+        <p>꼼꼼함과 신속함, 체계적인 업무 처리 능력으로 믿을 수 있는 최선의 서비스를 제공합니다.</p>
+        <div class="hero-badges">
+            <span class="hero-badge-item"><i class="fa-solid fa-bolt"></i> 신속배달</span>
+            <span class="hero-badge-item"><i class="fa-solid fa-clipboard-check"></i> 각종업무</span>
+            <span class="hero-badge-item"><i class="fa-solid fa-cart-shopping"></i> 쇼핑대행</span>
+            <span class="hero-badge-item"><i class="fa-solid fa-handshake"></i> 맞춤서비스</span>
+        </div>
+    </section>
+
+    <!-- Main Content Container -->
+    <main class="main-container">
+
+        <!-- TAB 1: 대표 소개 & 이력 (스펙 데이터 반영) -->
+        <section id="tab-about" class="tab-content active">
+            <h2 class="section-title">대표 소개 & 검증된 역량</h2>
+            
+            <div class="profile-card-grid">
+                <div class="profile-sidebar">
+                    <div class="profile-avatar">
+                        <i class="fa-solid fa-user-check"></i>
+                    </div>
+                    <h3>박 도 영</h3>
+                    <p>영도심부름센터 대표</p>
+
+                    <div class="spec-group">
+                        <h4><i class="fa-solid fa-award"></i> 보유 자격증</h4>
+                        <ul class="spec-list">
+                            <li>컴퓨터활용능력 2급</li>
+                            <li>설비보전기능사</li>
+                            <li>로봇 오퍼레이터 2급 (필기)</li>
+                        </ul>
+                    </div>
+
+                    <div class="spec-group">
+                        <h4><i class="fa-solid fa-trophy"></i> 주요 수상 실적</h4>
+                        <ul class="spec-list">
+                            <li>IP 마이스터 전국대회 (여성발명협회장상)</li>
+                            <li>교내 창의 발명대회 (장려상)</li>
+                            <li>전국바둑대회 우승</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="message-box">
+                    <h3>"체계적인 데이터 처리 능력과 수순을 내다보는 정밀함으로 확실하게 완수합니다."</h3>
+                    <p>안녕하십니까, 영도심부름센터 대표 박도영입니다.</p>
+                    <p>단순한 심부름을 넘어, 고객님의 소중한 시간과 일상을 완벽하게 지원하기 위해서는 정확한 상황 판단력과 책임감이 필수적입니다.</p>
+                    <p>저는 <strong>설비보전기능사</strong>와 <strong>컴퓨터활용능력</strong> 자격을 바탕으로 현장의 문제를 논리적이고 정확하게 해결하며, 전국 발명대회 수상(IP 마이스터) 및 공모전 참여 활동을 통해 증명된 창의적인 문제 해결 능력으로 맡겨주신 일을 깔끔하게 처리해 드립니다.</p>
+                    <p>어릴 적 전국바둑대회에서 배운 <strong>한 수 앞을 내다보는 신중함</strong>으로, 맡겨주신 업무를 빠짐없이 꼼꼼하게 진행할 것을 약속드립니다.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 2: 주요 업무 -->
+        <section id="tab-services" class="tab-content">
+            <h2 class="section-title">영도심부름센터 주요 서비스</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <i class="fa-solid fa-person-running"></i>
+                    <h3>신속 배달</h3>
+                    <p>급하게 전달해야 하는 서류, 잊으신 물품, 긴급 전달 사항을 안전하고 빠르게 전달해 드립니다.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fa-solid fa-file-signature"></i>
+                    <h3>각종 업무 대행</h3>
+                    <p>관공서 제출 업무, 현장 확인, 대기 줄 서기 등 복잡하고 시간이 필요한 일들을 대신 처리합니다.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fa-solid fa-basket-shopping"></i>
+                    <h3>쇼핑 & 장보기 대행</h3>
+                    <p>필요하신 생필품 구매부터 맞춤형 물품 조달까지 꼼꼼하게 확인 후 구매해 드립니다.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fa-solid fa-sliders"></i>
+                    <h3>1:1 맞춤 서비스</h3>
+                    <p>고객의 다양한 요구사항에 맞춰 현장 상황에 최적화된 맞춤 솔루션을 제공합니다.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 3: 운영 철학 (인재상 / 가치) -->
+        <section id="tab-values" class="tab-content">
+            <h2 class="section-title">영도심부름센터 3대 핵심 가치</h2>
+            <div class="value-grid">
+                <div class="value-card">
+                    <i class="fa-solid fa-shield-halved" style="font-size: 32px; color: var(--brand-blue); margin-bottom: 10px;"></i>
+                    <h3>신뢰성 (Trust)</h3>
+                    <p>컴퓨터활용능력 기반의 체계적 데이터 관리와 투명한 정산으로 끝까지 믿고 맡기실 수 있습니다.</p>
+                </div>
+                <div class="value-card">
+                    <i class="fa-solid fa-lightbulb" style="font-size: 32px; color: var(--brand-blue); margin-bottom: 10px;"></i>
+                    <h3>문제 해결력 (Solution)</h3>
+                    <p>발명대회 수상 경력으로 입증된 창의적인 기획력으로 예상치 못한 현장 변수에도 신속히 대응합니다.</p>
+                </div>
+                <div class="value-card">
+                    <i class="fa-solid fa-clock" style="font-size: 32px; color: var(--brand-blue); margin-bottom: 10px;"></i>
+                    <h3>책임감 (Responsibility)</h3>
+                    <p>미유고 교육 수료 및 멘토단 봉사활동 정신을 바탕으로, 모든 의뢰를 내 일처럼 책임 있게 완수합니다.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 4: 크루 / 파트너 모집 (채용 공고 형태) -->
+        <section id="tab-careers" class="tab-content">
+            <h2 class="section-title">함께할 현장 크루 & 파트너 모집</h2>
+            <p style="margin-bottom: 20px; color: var(--text-sub);">영도심부름센터와 함께 신뢰할 수 있는 서비스를 만들어갈 인재를 기다립니다.</p>
+
+            <div class="recruitment-card">
+                <div>
+                    <h3 style="font-size: 18px; color: var(--brand-blue);">[현장 크루] 영도 지역 현장 수행원 모집</h3>
+                    <p style="font-size: 14px; color: var(--text-sub);">성실함과 책임감을 갖춘 분 / 자전거 및 오토바이/차량 운전 가능자 우대</p>
+                </div>
+                <button class="apply-btn" onclick="alert('의뢰 및 지원 문의는 센터 대표 번호로 연락주시기 바랍니다.')">지원 문의</button>
+            </div>
+
+            <div class="recruitment-card">
+                <div>
+                    <h3 style="font-size: 18px; color: var(--brand-blue);">[협력 파트너] 지역 소상공인 연계 제휴 파트너</h3>
+                    <p style="font-size: 14px; color: var(--text-sub);">구매/배송 대행 및 각종 제휴 업무 협력업체 모집</p>
+                </div>
+                <button class="apply-btn" onclick="alert('제휴 문의는 대표 번호로 연락주시기 바랍니다.')">제휴 문의</button>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p><strong>영도심부름센터</strong> | 대표: 박도영</p>
+        <p style="margin-top: 5px; opacity: 0.8;">Copyright © 2026 영도심부름센터 All Rights Reserved.</p>
+    </footer>
+
+    <!-- Tab Interactive JavaScript -->
+    <script>
+        function openTab(evt, tabId) {
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => content.classList.remove('active'));
+
+            const tabButtons = document.querySelectorAll('.tab-btn');
+            tabButtons.forEach(button => button.classList.remove('active'));
+
+            document.getElementById(tabId).classList.add('active');
+            evt.currentTarget.classList.add('active');
+        }
+    </script>
+</body>
+</html>
